@@ -4,6 +4,9 @@
  */
 package Controlador;
 
+import Modelo.Empleado;
+import Modelo.EmpleadoDAO;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +19,10 @@ import java.io.PrintWriter;
  * @author juanjo
  */
 public class Validar extends HttpServlet {
+    
+    @Inject
+    private EmpleadoDAO edao;
+    Empleado em = new Empleado();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,11 +76,27 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accion= request.getParameter("accion");
+        String accion = request.getParameter("accion");
         if(accion.equalsIgnoreCase("Ingresar")){
             String user = request.getParameter("txtuser");
             String pass = request.getParameter("txtpass");
+            em = edao.validar(user, pass);
+            /*
+            String ii = em.getNom();            
+            PrintWriter out = response.getWriter();
+            out.println("<html>");
+            out.println("<body>");
+            out.println("<h1>Hola " + user + " " + ii + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
+            if(em.getUser() != null){
+                request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
+            }else{
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
         }else{
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

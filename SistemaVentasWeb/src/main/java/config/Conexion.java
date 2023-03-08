@@ -4,25 +4,18 @@
  */
 package config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.sql.DataSource;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 /**
  *
  * @author juanjo
  */
+@ApplicationScoped
 public class Conexion {
-    Connection con;
-    String url = "jdbc:mysql://localhost:3306/bd_vemtas";
-    String user = "root";
-    String password = "";
-    public Connection Conexion(){
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(url, user, password);
-        }catch(ClassNotFoundException | SQLException e){
-        }
-        return con;      
-    }
+    @Produces
+    @Resource(lookup = "java:app/jdbc/bd_ventas")
+    private DataSource dataSource;
 }

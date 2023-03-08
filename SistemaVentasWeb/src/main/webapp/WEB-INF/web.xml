@@ -21,4 +21,23 @@
             30
         </session-timeout>
     </session-config>
+    <data-source>
+        <name>java:app/jdbc/bd_ventas</name>
+        <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
+        <url>jdbc:mysql://localhost:3306/bd_ventas</url>
+        <user>root</user>
+        <password>Besther1219</password>
+        <property>
+            <name>allowPublicKeyRetrieval</name>
+            <value>true</value>           
+        </property>
+        <property>
+            <name>serverTimezone</name>
+            <value>UTC</value>
+        </property>
+        <property>
+            <name>useSSL</name>
+            <value>false</value>
+        </property>
+    </data-source>
 </web-app>
