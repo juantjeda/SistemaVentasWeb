@@ -81,22 +81,14 @@ public class Validar extends HttpServlet {
             String user = request.getParameter("txtuser");
             String pass = request.getParameter("txtpass");
             em = edao.validar(user, pass);
-            /*
-            String ii = em.getNom();            
-            PrintWriter out = response.getWriter();
-            out.println("<html>");
-            out.println("<body>");
-            out.println("<h1>Hola " + user + " " + ii + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
             if(em.getUser() != null){
-                request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
+                request.setAttribute("usuario", em);
+                request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response); // Si se encuentra el usuario pasa al sistema
             }else{
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response); // Si no regresa al principio
             }
         }else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response); // por si se manda algo que no debe.
         }
     }
 

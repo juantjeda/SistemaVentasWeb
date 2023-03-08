@@ -13,6 +13,7 @@ import jakarta.enterprise.inject.Produces;
  *
  * @author juanjo
  */
+
 @ApplicationScoped
 public class Conexion {
     @Produces
